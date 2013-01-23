@@ -119,7 +119,7 @@ var mapTweets = function(map){
 					icon : image
 				}),
 				infowindow = new google.maps.InfoWindow({
-					content: '<a href="https://twitter.com/'+tweet.from_user+'">@'+tweet.from_user+"</a><br />"+tweet.text
+					content: '<a href="https://twitter.com/'+tweet.from_user+'">@'+tweet.from_user+"</a><br />"+mT.linkify(tweet.text)
 				});
 				
 			tw.setMap(mT.map);
@@ -145,6 +145,22 @@ var mapTweets = function(map){
 				this.markers[i].setMap(null);
 			}
 			this.markers = new Array();
+			this.tweets = new Array();
+		},
+		
+		linkify : function (text) {
+			text = text.replace(/(https?:\/\/\S+)/gi, function (s) {
+				return '<a href="' + s + '">' + s + '</a>';
+			});
+		
+			text = text.replace(/(^|)@(\w+)/gi, function (s) {
+				return '<a href="http://twitter.com/' + s + '">' + s + '</a>';
+			});
+		
+			text = text.replace(/(^|)#(\w+)/gi, function (s) {
+				return '<a href="http://search.twitter.com/search?q=' + s.replace(/#/,'%23') + '">' + s + '</a>';
+			 });
+			return text;
 		},
 		
 		/*
