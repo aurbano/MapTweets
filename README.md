@@ -39,9 +39,6 @@ var tweets = new mapTweets(map,'Github');
 tweets.start();
 ```
 
-##Roadmap##
-This is the initial version, and it still lacks many configuration options. I would like to add custom markers, little popup boxes for the tweets... etc
-
 Feel free to fork this project and help along!
 
 - - - -
