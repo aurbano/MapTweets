@@ -33,7 +33,7 @@ var mapTweets = function(map, topic){
 				function(data){
 					for(var i=0;i<data.results.length;i++){
 						mT.tweets.push(data.results[i]);
-						mT.last = data.results[i].id;
+						mT.last = data.results[i].max_id_str;
 					}
 					mT.loading = false;
 					if(callback!==undefined) callback.call();
