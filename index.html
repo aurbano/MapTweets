@@ -33,6 +33,18 @@ h1{
 	z-index:9;
 	box-shadow:0 2px 6px #333;
 }
+header{
+	position:absolute;
+	top:0px;
+	left:46%;
+	padding:10px 20px;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
+	z-index:9;
+	background:rgba(255,255,255,0.8);
+	box-shadow:#222 0 0 10px;
+	display:none;
+}
 aside{
 	position:absolute;
 	top:50%;
@@ -52,6 +64,7 @@ a, a:focus, a:visited, a:link{
 }
 a:hover{
 	color:#ccc;
+	text-decoration:underline;
 }
 #map{
 	width:100%;
@@ -114,14 +127,25 @@ $(document).ready(function(){
 	
 	map.setOptions({styles: styles});
 	
+	// Create new mapTweets object
+	var tweets = new mapTweets(map);
+	
 	$('#changeTopic').submit(function(e){
 		e.preventDefault();
 		
 		$('aside').fadeOut();
-		// Create new mapTweets object
-		var tweets = new mapTweets(map,$('#topic').val());
+		$('header').fadeIn();
+		
 		// Start displaying tweets
-		tweets.start();
+		tweets.start($('#topic').val());
+	});
+	
+	$("a[href='#stop']").click(function(e){
+		e.preventDefault();
+		$('aside').fadeIn();
+		tweets.stop();
+		tweets.clearMarkers();
+		$('header').fadeOut();
 	});
 	
 	resize();
@@ -137,6 +161,7 @@ $(document).ready(function(){
 
 <body>
 <h1>Map Tweets</h1>
+<header><a href="#stop" style="color:#F00">Stop</a></header>
 <aside>
 	<form action="index.html" method="post" id="changeTopic">
 		<label>Enter topic to search for<br /><input type="text" name="topic" id="topic" placeholder="Topic" /></label>

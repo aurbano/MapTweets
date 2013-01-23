@@ -1,5 +1,5 @@
 /*
- *	mapTweets
+ *	MapTweets
  *	Displays tweets about a topic on a map
  *
  *	Requirements:
@@ -7,20 +7,22 @@
  *		- langCountry.js
  *		- Already inserted map from Google Maps API
  *
- *	Project page: http://github.com/aurbano
+ *	Project page: http://github.com/aurbano/MapTweets
  *
  *	Developed by Alejandro U. Álvarez <alejandro@urbanoalvarez.es>
  *
  *	Licensed under the MIT License
  */
-var mapTweets = function(map, topic){
+var mapTweets = function(map){
 	return {
 		tweets : new Array(),
 		last : 0,
-		count : 10,
+		count : 50,
 		loading : false,
-		topic : topic,
+		status : false,	// true => started, false => stopped
+		topic : null,
 		map : map,
+		markers : new Array(),
 		
 		/*
 		 *	loadTweets
@@ -122,27 +124,43 @@ var mapTweets = function(map, topic){
 				
 			tw.setMap(mT.map);
 			
+			mT.markers.push(tw);
+			
 			google.maps.event.addListener(tw, 'click', function() {
 				infowindow.open(map,tw);
 			});
 			
-			// Cargar mas
 			if(mT.tweets.length < 10 && !mT.loading) mT.loadTweets();
-			// Mostramos el siguiente
+
+			if(!status) return;
+			
 			setTimeout(function(){
 				mT.nextTweet();
 			},2000*Math.random()+100);
+		},
+		
+		clearMarkers : function(){
+			var total = this.markers.length;
+			for(var i=0;i<total;i++){
+				this.markers[i].setMap(null);
+			}
+			this.markers = new Array();
 		},
 		
 		/*
 		 *	start
 		 *	Start loading and displaying tweets
 		 */
-		start : function(){
+		start : function(topic){
 			var mT = this;
+			mT.topic = topic;
 			this.loadTweets(function(){
 				mT.nextTweet();
 			});
+		},
+		
+		stop : function(){
+			this.status = false;
 		}
 	};
 };
