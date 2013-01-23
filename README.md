@@ -5,7 +5,7 @@ MapTweets
 
 **mapTweets** is a very small JavaScript "plugin" that will allow you to display in real time what people are saying about any topic you want.
 
-If you want to see it simply clone the repo and open `index.html` in your browser.
+It's live on [nuostudio's lab](http://lab.nuostudio.com/maptweets/), although you can simply clone the repo and open `index.html` in your browser.
 
 ##Requirements:##
 mapTweets requires the following libraries and APIs to work:
