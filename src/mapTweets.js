@@ -104,12 +104,27 @@ var mapTweets = function(map, topic){
 		 */
 		displayTweet : function(tweet, lat, lng){
 			var mT = this,
+				image = new google.maps.MarkerImage(
+					tweet.profile_image_url,
+					new google.maps.Size(30,30),    // size of the image
+					new google.maps.Point(0,0), // origin, in this case top-left corner
+					new google.maps.Point(9, 25)    // anchor, i.e. the point half-way along the bottom of the image
+				),
 				tw = new google.maps.Marker({
 					position: new google.maps.LatLng(lat, lng),
 					animation: google.maps.Animation.DROP,
-					title:"@"+tweet.from_user+": "+tweet.text
+					title:"@"+tweet.from_user+": "+tweet.text,
+					icon : image
+				}),
+				infowindow = new google.maps.InfoWindow({
+					content: '<a href="https://twitter.com/'+tweet.from_user+'">@'+tweet.from_user+"</a><br />"+tweet.text
 				});
+				
 			tw.setMap(mT.map);
+			
+			google.maps.event.addListener(tw, 'click', function() {
+				infowindow.open(map,tw);
+			});
 			
 			// Cargar mas
 			if(mT.tweets.length < 10 && !mT.loading) mT.loadTweets();
