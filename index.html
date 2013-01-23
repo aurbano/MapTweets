@@ -11,46 +11,57 @@ html, body{
 	height:100%;
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:100%;
+	overflow:hidden;
 }
 body{
-	background:#000;
-	color:#FFF;
+	background:rgb(65,98,174);
+	color:#000;
 }
 h1{
 	color:#000;
 	background:#FFF;
 	display:inline-block;
 	padding-right:15px;
-	margin:30px 0px 0 20px; 
-	font-size:100px;
+	margin:0;
+	font-size:600%;
 	font-weight:400;
 	letter-spacing:-10px;
 	border-bottom:#CCC solid 10px;
+	position:absolute;
+	top:40px;
+	right:10px;
+	z-index:9;
+	box-shadow:0 2px 6px #333;
 }
 aside{
-	margin:10px auto;
-	width:400px;
-	font-size:70%;
-}
-header{
-	padding-bottom:30px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	z-index:9;
+	background:#FFF;
+	padding:20px 30px;
+	border:#333 solid 1px;
+	box-shadow:#000 0 0 10px;
+	margin:-20px 0 0 -70px;
+	text-align:center;
 }
 a, a:focus, a:visited, a:link{
-	color:#FC0;
+	color:#fff;
 	text-decoration:none;
 }
 a:hover{
-	color:#F00;
+	color:#ccc;
 }
 #map{
 	width:100%;
 	height:600px;
-	border-top:solid 3px #666666;
-	border-bottom:solid 3px #666666;
 }
 footer{
-	padding:30px 0;
-	text-align:center;
+	position:absolute;
+	z-index:8;
+	bottom:40px;
+	left:3px;
+	text-shadow:#000 0 1px 3px;
 }
 </style>
 <script type="text/javascript" src="lib/jquery.min.js"></script>
@@ -59,32 +70,40 @@ footer{
 <script type="text/javascript" src="src/langCountry.js"></script>
 <script type="text/javascript" src="src/mapTweets.js"></script>
 <script type="text/javascript">
+
+function resize(){
+	$('#map').css({
+		height : $(window).height(),
+		width : $(window).width()
+	});	
+}
+
 $(document).ready(function(){
 	var opts = {
-			zoom: 2,
-			center: new google.maps.LatLng(40.178873, -4.570313),
+			zoom: 3,
+			center: new google.maps.LatLng(30.178873, -4.570313),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		},
 		map = new google.maps.Map($('#map').get(0), opts),
 		styles = [
 		  {
-			stylers: [
-			  { hue: "#00ffe6" },
-			  { saturation: -20 }
+			"stylers": [
+			  { "hue": "#004cff" },
+			  { "lightness": -38 }
 			]
 		  },{
-			featureType: "road",
-			elementType: "geometry",
-			stylers: [
-			  { lightness: 100 },
-			  { visibility: "simplified" }
+			"featureType": "administrative",
+			"stylers": [
+			  { "weight": 0.1 },
+			  { "lightness": 11 }
 			]
 		  },{
-			featureType: "road",
-			elementType: "labels",
-			stylers: [
-			  { visibility: "off" }
+			"featureType": "landscape",
+			"elementType": "geometry.fill",
+			"stylers": [
+			  { "color": "#809ff0" }
 			]
+		  },{
 		  }
 		];
 	
@@ -99,23 +118,26 @@ $(document).ready(function(){
 		// Start displaying tweets
 		tweets.start();
 	});
+	
+	resize();
+	
+	$(window).resize(function(){
+		resize();
+	});
+	
+	$('#topic').focus();
 });
 </script>
 </head>
 
 <body>
-<header>
-	<h1>Map Tweets Demo</h1>
-</header>
+<h1>Map Tweets</h1>
 <aside>
 	<form action="index.html" method="post" id="changeTopic">
-		<label>Enter topic to search for:<br /><input type="text" name="topic" id="topic" placeholder="Topic" /></label>
+		<label>Enter topic to search for<br /><input type="text" name="topic" id="topic" placeholder="Topic" /></label>
 	</form>
 </aside>
-<article>
-	<div id="map">Loading map...</div>
-</article>
-<footer>
-<a href="https://github.com/aurbano/MapTweets">Fork this project on Github</a> &bull; Developed by <a href="http://urbanoalvarez.es">Alejandro U. Alvarez</a></footer>
+<div id="map">Loading map...</div>
+<footer><a href="https://github.com/aurbano/MapTweets"><small>Fork on</small><br/>Github</a></footer>
 </body>
 </html>
