@@ -54,7 +54,7 @@ aside{
 	padding:20px 30px;
 	border:#333 solid 1px;
 	box-shadow:#000 0 0 10px;
-	margin:-20px 0 0 -70px;
+	margin:-42px 0 0 -107px;
 	text-align:center;
 	border-radius:10px;
 }
@@ -79,6 +79,19 @@ footer{
 	bottom:40px;
 	left:3px;
 	text-shadow:#000 0 1px 3px;
+}
+input{
+	border:#999 solid 1px;
+	outline:none;
+	background:#FFF;
+	padding:3px 6px;
+}
+hr{
+	border:none;
+	border-bottom:#999 solid 1px;	
+}
+aside small{
+	color:#666;	
 }
 </style>
 <script type="text/javascript" src="lib/jquery.min.js"></script>
@@ -122,6 +135,10 @@ $(document).ready(function(){
 			  { "color": "#809ff0" }
 			]
 		  },{
+			"featureType": "road",
+			"stylers": [
+			  { "visibility": "off" }
+			]
 		  }
 		];
 	
@@ -165,9 +182,25 @@ $(document).ready(function(){
 <aside>
 	<form action="index.html" method="post" id="changeTopic">
 		<label>Enter topic to search for<br /><input type="text" name="topic" id="topic" placeholder="Topic" /></label>
+		<hr />
+		<div style="text-align:center"><small>Real time tweet location for any topic</small></div>
 	</form>
 </aside>
 <div id="map">Loading map...</div>
 <footer><a href="https://github.com/aurbano/MapTweets"><small>Fork on</small><br/>Github</a></footer>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26633779-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </body>
 </html>

@@ -132,7 +132,7 @@ var mapTweets = function(map){
 			
 			if(mT.tweets.length < 10 && !mT.loading) mT.loadTweets();
 
-			if(!status) return;
+			if(!mT.status) return;
 			
 			setTimeout(function(){
 				mT.nextTweet();
@@ -170,6 +170,7 @@ var mapTweets = function(map){
 		start : function(topic){
 			var mT = this;
 			mT.topic = topic;
+			mT.status = true;
 			this.loadTweets(function(){
 				mT.nextTweet();
 			});
