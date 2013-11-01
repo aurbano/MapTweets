@@ -31,7 +31,7 @@ var mapTweets = function(map){
 		loadTweets : function(callback){
 			var mT = this;
 			mT.loading = true;
-			$.get("http://search.twitter.com/search.json", { since_id:mT.last, q:mT.topic, count:mT.count},
+			$.get("https://api.twitter.com/1.1/search/tweets.json?", { since_id:mT.last, q:mT.topic, count:mT.count},
 				function(data){
 					for(var i=0;i<data.results.length;i++){
 						mT.tweets.push(data.results[i]);
