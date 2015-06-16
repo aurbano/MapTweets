@@ -44,3 +44,5 @@ Feel free to fork this project and help along!
 - - - -
 
 Licensed under the MIT license - Developed by [Alejandro U. Alvarez](http://urbanoalvarez.es)
+
+[![Analytics](https://ga-beacon.appspot.com/UA-3181088-16/MapTweets/readme)](https://github.com/aurbano)
